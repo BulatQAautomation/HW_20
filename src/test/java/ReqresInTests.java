@@ -15,7 +15,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void getListUsers() {
+    public void getListUsersTest() {
         given()
                 .log().uri()
                 .when()
@@ -29,7 +29,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void createNewUser() {
+    public void createNewUserTest() {
         String newUserData = "{\n" +
                 "    \"name\": \"morpheus\",\n" +
                 "    \"job\": \"leader\"\n" +
@@ -49,7 +49,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void registrationSuccessful() {
+    public void registrationSuccessfulTest() {
         String registrationData = "{\n" +
                 "    \"email\": \"eve.holt@reqres.in\",\n" +
                 "    \"password\": \"pistol\"\n" +
@@ -68,8 +68,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void parsingListOfResources() {
-        String data1 = "<{id=2, name=fuchsia rose, year=2001, color=#C74375, pantone_value=17-2031}>";
+    public void parsingListOfResourcesTest() {
 
         given()
                 .log().uri()
@@ -84,7 +83,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void authenticationError() {
+    public void authenticationErrorTest() {
 
         String email = "{\n" +
                 "    \"email\": \"peter@klaven\"\n" +
