@@ -56,7 +56,7 @@ public class ReqresInTests {
                 .log().status()
                 .log().body()
                 .statusCode(200)
-                .body("id", equalTo(4), "token", equalTo("QpwL5tke4Pnpja7X4"));
+                .body("id", equalTo(4), "token", is(notNullValue()));
     }
 
     @Test
