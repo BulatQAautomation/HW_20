@@ -1,18 +1,26 @@
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.*;
 
 public class ReqresInTests {
-    String url = "https://reqres.in/api";
+
+    @BeforeAll
+    public static void setUp() {
+        RestAssured.baseURI = "https://reqres.in/api";
+    }
+
     @Test
-    public void getListUsers(){
+    public void getListUsers() {
         given()
                 .log().uri()
-        .when()
-                .get(url + "/users?page=2")
-        .then()
+                .when()
+                .get("/users?page=2")
+                .then()
                 .log().status()
                 .log().body()
                 .statusCode(200)
@@ -21,7 +29,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void createNewUser(){
+    public void createNewUser() {
         String newUserData = "{\n" +
                 "    \"name\": \"morpheus\",\n" +
                 "    \"job\": \"leader\"\n" +
@@ -31,9 +39,9 @@ public class ReqresInTests {
                 .log().uri()
                 .contentType(JSON)
                 .body(newUserData)
-        .when()
-                .post(url + "/users")
-        .then()
+                .when()
+                .post("/users")
+                .then()
                 .log().status()
                 .log().body()
                 .statusCode(201)
@@ -41,7 +49,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void registrationSuccessful(){
+    public void registrationSuccessful() {
         String registrationData = "{\n" +
                 "    \"email\": \"eve.holt@reqres.in\",\n" +
                 "    \"password\": \"pistol\"\n" +
@@ -50,9 +58,9 @@ public class ReqresInTests {
                 .log().uri()
                 .contentType(JSON)
                 .body(registrationData)
-        .when()
-                .post(url + "/register")
-        .then()
+                .when()
+                .post("/register")
+                .then()
                 .log().status()
                 .log().body()
                 .statusCode(200)
@@ -60,15 +68,15 @@ public class ReqresInTests {
     }
 
     @Test
-    public void parsingListOfResources(){
+    public void parsingListOfResources() {
         String data1 = "<{id=2, name=fuchsia rose, year=2001, color=#C74375, pantone_value=17-2031}>";
 
         given()
                 .log().uri()
                 .contentType(JSON)
-        .when()
-                .get(url + "/unknown")
-        .then()
+                .when()
+                .get("/unknown")
+                .then()
                 .log().status()
                 .log().body()
                 .body("data.name[0]", equalTo("cerulean"))
@@ -76,7 +84,7 @@ public class ReqresInTests {
     }
 
     @Test
-    public void authenticationError(){
+    public void authenticationError() {
 
         String email = "{\n" +
                 "    \"email\": \"peter@klaven\"\n" +
@@ -86,9 +94,9 @@ public class ReqresInTests {
                 .log().uri()
                 .contentType(JSON)
                 .body(email)
-        .when()
-                .post(url + "/login")
-        .then()
+                .when()
+                .post("/login")
+                .then()
                 .log().status()
                 .log().body()
                 .statusCode(400)
